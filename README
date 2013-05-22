@@ -1,0 +1,68 @@
+NAME
+    JSON::MaybeXS - use Cpanel::JSON::XS with a fallback to JSON::PP
+
+SYNOPSIS
+      use JSON::MaybeXS;
+
+      my $data_structure = decode_json($json_input);
+
+      my $json_output = encode_json($data_structure);
+
+      my $json = JSON->new;
+
+DESCRIPTION
+    This module tries to load Cpanel::JSON::XS, and if that fails instead
+    tries to load JSON::PP. If neither is available, an exception will be
+    thrown.
+
+    It then exports the "encode_json" and "decode_json" functions from the
+    loaded module, along with a "JSON" constant that returns the class name
+    for calling "new" on.
+
+EXPORTS
+    All of "encode_json", "decode_json" and "JSON" are exported by default.
+
+    To import only some symbols, specify them on the "use" line:
+
+      use JSON::MaybeXS qw(encode_json decode_json); # functions only
+
+      use JSON::MaybeXS qw(JSON); # JSON constant only
+
+  encode_json
+    This is the "encode_json" function provided by the selected
+    implementation module, and takes a perl data stucture which is
+    serialised to JSON text.
+
+      my $json_text = encode_json($data_structure);
+
+  decode_json
+    This is the "decode_json" function provided by the selected
+    implementation module, and takes a string of JSON text to deserialise to
+    a perl data structure.
+
+      my $data_structure = decode_json($json_text);
+
+  JSON
+    The "JSON" constant returns the selected implementation module's name
+    for use as a class name - so:
+
+      my $json_obj = JSON->new; # returns a Cpanel::JSON::XS or JSON::PP object
+
+    and that object can then be used normally:
+
+      my $data_structure = $json_obj->decode($json_text); # etc.
+
+AUTHOR
+    mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
+
+CONTRIBUTORS
+    None yet. Well volunteered? :)
+
+COPYRIGHT
+    Copyright (c) 2013 the "JSON::MaybeXS" "AUTHOR" and "CONTRIBUTORS" as
+    listed above.
+
+LICENSE
+    This library is free software and may be distributed under the same
+    terms as perl itself.
+
