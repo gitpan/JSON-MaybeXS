@@ -4,6 +4,7 @@ maint/Makefile.PL.include
 Makefile.PL
 MANIFEST			This list of files
 t/neither.t
+t/new.t
 t/pp.t
 t/xs.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)

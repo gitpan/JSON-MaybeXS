@@ -10,6 +10,8 @@ SYNOPSIS
 
       my $json = JSON->new;
 
+      my $json_with_args = JSON::MaybeXS->new(utf8 => 1); # or { utf8 => 1 }
+
 DESCRIPTION
     This module tries to load Cpanel::JSON::XS, and if that fails instead
     tries to load JSON::PP. If neither is available, an exception will be
@@ -18,6 +20,10 @@ DESCRIPTION
     It then exports the "encode_json" and "decode_json" functions from the
     loaded module, along with a "JSON" constant that returns the class name
     for calling "new" on.
+
+    If you're writing fresh code rather than replacing JSON.pm usage, you
+    might want to pass options as constructor args rather than calling
+    mutators, so we provide our own "new" method that supports that.
 
 EXPORTS
     All of "encode_json", "decode_json" and "JSON" are exported by default.
@@ -51,6 +57,21 @@ EXPORTS
     and that object can then be used normally:
 
       my $data_structure = $json_obj->decode($json_text); # etc.
+
+CONSTRUCTOR
+  new
+    With JSON::PP and Cpanel::JSON::XS you are required to call mutators to
+    set options, i.e.
+
+      my $json = $class->new->utf8(1)->pretty(1);
+
+    Since this is a trifle irritating and noticeably un-perlish, we also
+    offer:
+
+      my $json = JSON::MaybeXS->new(utf8 => 1, pretty => 1);
+
+    which works equivalently to the above (and in the usual tradition will
+    accept a hashref instead of a hash, should you so desire).
 
 AUTHOR
     mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
