@@ -1,10 +1,10 @@
 {
-   "abstract" : "use L<Cpanel::JSON::XS> with a fallback to L<JSON::PP>",
+   "abstract" : "use L<Cpanel::JSON::XS> with a fallback to L<JSON::XS> and L<JSON::PP>",
    "author" : [
       "mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.131560",
+   "generated_by" : "ExtUtils::MakeMaker version 6.96, CPAN::Meta::Converter version 2.140640",
    "license" : [
       "perl_5"
    ],
@@ -22,8 +22,7 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::More" : "0.88",
-            "Test::Without::Module" : "0.17"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "configure" : {
@@ -32,14 +31,32 @@
          }
       },
       "runtime" : {
+         "recommends" : {
+            "Cpanel::JSON::XS" : "2.3310"
+         },
          "requires" : {
-            "Cpanel::JSON::XS" : "2.3310",
             "JSON::PP" : "2.27202",
+            "perl" : "5.006"
+         }
+      },
+      "test" : {
+         "requires" : {
             "Test::More" : "0.88",
             "Test::Without::Module" : "0.17"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "1.001000"
+   "resources" : {
+      "bugtracker" : {
+         "mailto" : "bug-JSON-MaybeXS@rt.cpan.org",
+         "web" : "https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS"
+      },
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/karenetheridge/JSON-MaybeXS.git",
+         "web" : "https://github.com/karenetheridge/JSON-MaybeXS"
+      }
+   },
+   "version" : "1.002000"
 }

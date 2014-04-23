@@ -1,5 +1,6 @@
 NAME
-    JSON::MaybeXS - use Cpanel::JSON::XS with a fallback to JSON::PP
+    JSON::MaybeXS - use Cpanel::JSON::XS with a fallback to JSON::XS and
+    JSON::PP
 
 SYNOPSIS
       use JSON::MaybeXS;
@@ -13,9 +14,10 @@ SYNOPSIS
       my $json_with_args = JSON::MaybeXS->new(utf8 => 1); # or { utf8 => 1 }
 
 DESCRIPTION
-    This module tries to load Cpanel::JSON::XS, and if that fails instead
-    tries to load JSON::PP. If neither is available, an exception will be
-    thrown.
+    This module first checks to see if either Cpanel::JSON::XS or JSON::XS
+    is already loaded, in which case it uses that module. Otherwise it tries
+    to load Cpanel::JSON::XS, then JSON::XS, then JSON::PP in order, and
+    either uses the first module it finds or throws an error.
 
     It then exports the "encode_json" and "decode_json" functions from the
     loaded module, along with a "JSON" constant that returns the class name
@@ -60,8 +62,8 @@ EXPORTS
 
 CONSTRUCTOR
   new
-    With JSON::PP and Cpanel::JSON::XS you are required to call mutators to
-    set options, i.e.
+    With JSON::PP, JSON::XS and Cpanel::JSON::XS you are required to call
+    mutators to set options, i.e.
 
       my $json = $class->new->utf8(1)->pretty(1);
 

@@ -4,23 +4,60 @@ use 5.008001;
 use ExtUtils::MakeMaker;
 (do 'maint/Makefile.PL.include' or die $@) unless -f 'META.yml';
 
-my %BUILD_DEPS = (
-  'Test::Without::Module' => '0.17',
-  'Test::More' => '0.88'
-);
+# we require Cpanel::JSON::XS, except if JSON::XS is already installed we only
+# reocmmend it.
+my $require_cpanel_json_xs = can_xs() && !eval { require JSON::XS; 1; };
 
-WriteMakefile(
+my %WriteMakefileArgs = (
   NAME => 'JSON::MaybeXS',
   VERSION_FROM => 'lib/JSON/MaybeXS.pm',
   PREREQ_PM => {
     'JSON::PP' => '2.27202',
-    (can_xs()
+    ($require_cpanel_json_xs
       ? ('Cpanel::JSON::XS' => '2.3310')
       : ()),
-    %BUILD_DEPS,
+    perl => '5.006',
   },
-  BUILD_REQUIRES => \%BUILD_DEPS,
+  TEST_REQUIRES => {
+    'Test::Without::Module' => '0.17',
+    'Test::More' => '0.88'
+  },
+
+  META_MERGE => {
+    'meta-spec' => { version => 2 },
+    dynamic_config => 1,
+    ($require_cpanel_json_xs
+      ? ()
+      : (prereqs => { runtime => { recommends => { 'Cpanel::JSON::XS' => '2.3310' } } })),
+
+    resources => {
+      repository => {
+        url => 'https://github.com/karenetheridge/JSON-MaybeXS.git',
+        web => 'https://github.com/karenetheridge/JSON-MaybeXS',
+        type => 'git',
+      },
+      bugtracker => {
+        mailto => 'bug-JSON-MaybeXS@rt.cpan.org',
+        web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS',
+      },
+    },
+  },
+
+  realclean => { FILES => 'Distar/' },
 );
+
+my $eumm_version  = eval $ExtUtils::MakeMaker::VERSION;
+$WriteMakefileArgs{MIN_PERL_VERSION} = delete $WriteMakefileArgs{PREREQ_PM}{perl} || 0;
+$WriteMakefileArgs{BUILD_REQUIRES} = {
+    %{$WriteMakefileArgs{BUILD_REQUIRES}},
+    %{delete $WriteMakefileArgs{TEST_REQUIRES}}
+} if $eumm_version < 6.63_03;
+$WriteMakefileArgs{PREREQ_PM} = {
+    %{$WriteMakefileArgs{PREREQ_PM}},
+    %{delete $WriteMakefileArgs{BUILD_REQUIRES}}
+} if $eumm_version < 6.55_01;
+
+WriteMakefile(%WriteMakefileArgs);
 
 # can we locate a (the) C compiler
 sub can_cc {
