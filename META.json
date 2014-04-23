@@ -27,7 +27,9 @@
       },
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "0"
+            "ExtUtils::CBuilder" : "0.27",
+            "File::Spec" : "0",
+            "File::Temp" : "0"
          }
       },
       "runtime" : {
@@ -35,6 +37,7 @@
             "Cpanel::JSON::XS" : "2.3310"
          },
          "requires" : {
+            "Cpanel::JSON::XS" : "2.3310",
             "JSON::PP" : "2.27202",
             "perl" : "5.006"
          }
@@ -58,5 +61,5 @@
          "web" : "https://github.com/karenetheridge/JSON-MaybeXS"
       }
    },
-   "version" : "1.002000"
+   "version" : "1.002001"
 }

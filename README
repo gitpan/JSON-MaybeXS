@@ -38,7 +38,7 @@ EXPORTS
 
   encode_json
     This is the "encode_json" function provided by the selected
-    implementation module, and takes a perl data stucture which is
+    implementation module, and takes a perl data structure which is
     serialised to JSON text.
 
       my $json_text = encode_json($data_structure);
@@ -79,7 +79,9 @@ AUTHOR
     mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
 
 CONTRIBUTORS
-    None yet. Well volunteered? :)
+    *   Clinton Gormley <drtech@cpan.org>
+
+    *   Karen Etheridge <ether@cpan.org>
 
 COPYRIGHT
     Copyright (c) 2013 the "JSON::MaybeXS" "AUTHOR" and "CONTRIBUTORS" as

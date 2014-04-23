@@ -4,8 +4,8 @@ use 5.008001;
 use ExtUtils::MakeMaker;
 (do 'maint/Makefile.PL.include' or die $@) unless -f 'META.yml';
 
-# we require Cpanel::JSON::XS, except if JSON::XS is already installed we only
-# reocmmend it.
+# we require Cpanel::JSON::XS, except if JSON::XS is already installed.
+# (we also always recommend Cpanel::JSON::XS, just to make sure.)
 my $require_cpanel_json_xs = can_xs() && !eval { require JSON::XS; 1; };
 
 my %WriteMakefileArgs = (
@@ -18,6 +18,11 @@ my %WriteMakefileArgs = (
       : ()),
     perl => '5.006',
   },
+  CONFIGURE_REQUIRES => {
+    'ExtUtils::CBuilder' => '0.27',
+    'File::Spec' => '0',
+    'File::Temp' => '0',
+  },
   TEST_REQUIRES => {
     'Test::Without::Module' => '0.17',
     'Test::More' => '0.88'
@@ -26,9 +31,7 @@ my %WriteMakefileArgs = (
   META_MERGE => {
     'meta-spec' => { version => 2 },
     dynamic_config => 1,
-    ($require_cpanel_json_xs
-      ? ()
-      : (prereqs => { runtime => { recommends => { 'Cpanel::JSON::XS' => '2.3310' } } })),
+    prereqs => { runtime => { recommends => { 'Cpanel::JSON::XS' => '2.3310' } } },
 
     resources => {
       repository => {
@@ -48,14 +51,19 @@ my %WriteMakefileArgs = (
 
 my $eumm_version  = eval $ExtUtils::MakeMaker::VERSION;
 $WriteMakefileArgs{MIN_PERL_VERSION} = delete $WriteMakefileArgs{PREREQ_PM}{perl} || 0;
+
 $WriteMakefileArgs{BUILD_REQUIRES} = {
-    %{$WriteMakefileArgs{BUILD_REQUIRES}},
+    %{$WriteMakefileArgs{BUILD_REQUIRES} || {}},
     %{delete $WriteMakefileArgs{TEST_REQUIRES}}
 } if $eumm_version < 6.63_03;
+
 $WriteMakefileArgs{PREREQ_PM} = {
     %{$WriteMakefileArgs{PREREQ_PM}},
     %{delete $WriteMakefileArgs{BUILD_REQUIRES}}
 } if $eumm_version < 6.55_01;
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  if $eumm_version < 6.51_03;
 
 WriteMakefile(%WriteMakefileArgs);
 

@@ -4,7 +4,7 @@ use strict;
 use warnings FATAL => 'all';
 use base qw(Exporter);
 
-our $VERSION = '1.002000';
+our $VERSION = '1.002001';
 
 sub _choose_json_module {
     return 'Cpanel::JSON::XS' if $INC{'Cpanel/JSON/XS.pm'};
@@ -71,7 +71,7 @@ It then exports the C<encode_json> and C<decode_json> functions from the
 loaded module, along with a C<JSON> constant that returns the class name
 for calling C<new> on.
 
-If you're writing fresh code rather than replacing JSON.pm usage, you might
+If you're writing fresh code rather than replacing L<JSON.pm|JSON> usage, you might
 want to pass options as constructor args rather than calling mutators, so
 we provide our own C<new> method that supports that.
 
@@ -88,7 +88,7 @@ To import only some symbols, specify them on the C<use> line:
 =head2 encode_json
 
 This is the C<encode_json> function provided by the selected implementation
-module, and takes a perl data stucture which is serialised to JSON text.
+module, and takes a perl data structure which is serialised to JSON text.
 
   my $json_text = encode_json($data_structure);
 
@@ -132,7 +132,13 @@ mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>
 
 =head1 CONTRIBUTORS
 
-None yet. Well volunteered? :)
+=over 4
+
+=item * Clinton Gormley <drtech@cpan.org>
+
+=item * Karen Etheridge <ether@cpan.org>
+
+=back
 
 =head1 COPYRIGHT
 

@@ -7,7 +7,9 @@ build_requires:
   Test::More: '0.88'
   Test::Without::Module: '0.17'
 configure_requires:
-  ExtUtils::MakeMaker: '0'
+  ExtUtils::CBuilder: '0.27'
+  File::Spec: '0'
+  File::Temp: '0'
 dynamic_config: 1
 generated_by: 'ExtUtils::MakeMaker version 6.96, CPAN::Meta::Converter version 2.140640'
 license: perl
@@ -22,9 +24,10 @@ no_index:
 recommends:
   Cpanel::JSON::XS: '2.3310'
 requires:
+  Cpanel::JSON::XS: '2.3310'
   JSON::PP: '2.27202'
   perl: '5.006'
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS
   repository: https://github.com/karenetheridge/JSON-MaybeXS.git
-version: '1.002000'
+version: '1.002001'
