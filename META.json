@@ -20,11 +20,6 @@
       ]
    },
    "prereqs" : {
-      "build" : {
-         "requires" : {
-            "ExtUtils::MakeMaker" : "0"
-         }
-      },
       "configure" : {
          "requires" : {
             "ExtUtils::CBuilder" : "0.27",
@@ -37,7 +32,6 @@
             "Cpanel::JSON::XS" : "2.3310"
          },
          "requires" : {
-            "Cpanel::JSON::XS" : "2.3310",
             "JSON::PP" : "2.27202",
             "perl" : "5.006"
          }
@@ -61,5 +55,5 @@
          "web" : "https://github.com/karenetheridge/JSON-MaybeXS"
       }
    },
-   "version" : "1.002001"
+   "version" : "1.002002"
 }

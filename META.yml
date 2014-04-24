@@ -3,7 +3,6 @@ abstract: 'use L<Cpanel::JSON::XS> with a fallback to L<JSON::XS> and L<JSON::PP
 author:
   - 'mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>'
 build_requires:
-  ExtUtils::MakeMaker: '0'
   Test::More: '0.88'
   Test::Without::Module: '0.17'
 configure_requires:
@@ -24,10 +23,9 @@ no_index:
 recommends:
   Cpanel::JSON::XS: '2.3310'
 requires:
-  Cpanel::JSON::XS: '2.3310'
   JSON::PP: '2.27202'
   perl: '5.006'
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS
   repository: https://github.com/karenetheridge/JSON-MaybeXS.git
-version: '1.002001'
+version: '1.002002'
