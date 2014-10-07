@@ -1,18 +1,33 @@
 use strict;
 use warnings FATAL => 'all';
-use 5.008001;
 use ExtUtils::MakeMaker;
 (do 'maint/Makefile.PL.include' or die $@) unless -f 'META.yml';
 
 my %WriteMakefileArgs = (
   NAME => 'JSON::MaybeXS',
   VERSION_FROM => 'lib/JSON/MaybeXS.pm',
-  META_ADD => {
+
+  META_MERGE => {
     'meta-spec' => { version => 2 },
     dynamic_config => 1,
+    resources => {
+      repository => {
+        url => 'https://github.com/karenetheridge/JSON-MaybeXS.git',
+        web => 'https://github.com/karenetheridge/JSON-MaybeXS',
+        type => 'git',
+      },
+      bugtracker => {
+        mailto => 'bug-JSON-MaybeXS@rt.cpan.org',
+        web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS',
+      },
+    },
+  },
+
+  META_ADD => {
     prereqs => {
       configure => {
         requires => {
+          'ExtUtils::MakeMaker' => '0',
           'ExtUtils::CBuilder' => '0.27',
           'File::Spec' => '0',
           'File::Temp' => '0',
@@ -34,21 +49,7 @@ my %WriteMakefileArgs = (
         },
       },
     },
-
-    resources => {
-      repository => {
-        url => 'https://github.com/karenetheridge/JSON-MaybeXS.git',
-        web => 'https://github.com/karenetheridge/JSON-MaybeXS',
-        type => 'git',
-      },
-      bugtracker => {
-        mailto => 'bug-JSON-MaybeXS@rt.cpan.org',
-        web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS',
-      },
-    },
   },
-
-  realclean => { FILES => 'Distar/' },
 );
 
 my $eumm_version  = eval $ExtUtils::MakeMaker::VERSION;
@@ -64,12 +65,17 @@ for (qw(configure build test runtime)) {
   defined $r->{$_} or delete $r->{$_} for keys %$r;
 }
 
+# dynamic prereqs get added here.
+
 # we require Cpanel::JSON::XS, except if JSON::XS is already installed.
 # (we also always recommend Cpanel::JSON::XS, just to make sure.)
 $WriteMakefileArgs{PREREQ_PM}{'Cpanel::JSON::XS'} = '2.3310'
     if can_xs() && !eval { require JSON::XS; 1; };
 
 $WriteMakefileArgs{MIN_PERL_VERSION} = delete $WriteMakefileArgs{PREREQ_PM}{perl} || 0;
+
+die 'attention developer: you need to do a sane meta merge here!'
+  if keys %{$WriteMakefileArgs{BUILD_REQUIRES}};
 
 $WriteMakefileArgs{BUILD_REQUIRES} = {
     %{$WriteMakefileArgs{BUILD_REQUIRES} || {}},
@@ -83,6 +89,15 @@ $WriteMakefileArgs{PREREQ_PM} = {
 
 delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
   if $eumm_version < 6.51_03;
+
+delete $WriteMakefileArgs{MIN_PERL_VERSION}
+  if $eumm_version < 6.48;
+
+delete @WriteMakefileArgs{qw(META_ADD META_MERGE)}
+  if $eumm_version < 6.46;
+
+delete $WriteMakefileArgs{LICENSE}
+  if $eumm_version < 6.31;
 
 WriteMakefile(%WriteMakefileArgs);
 

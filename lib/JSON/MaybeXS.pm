@@ -4,7 +4,7 @@ use strict;
 use warnings FATAL => 'all';
 use base qw(Exporter);
 
-our $VERSION = '1.002002';
+our $VERSION = '1.002003';
 
 sub _choose_json_module {
     return 'Cpanel::JSON::XS' if $INC{'Cpanel/JSON/XS.pm'};
@@ -46,7 +46,7 @@ sub new {
 
 =head1 NAME
 
-JSON::MaybeXS - use L<Cpanel::JSON::XS> with a fallback to L<JSON::XS> and L<JSON::PP>
+JSON::MaybeXS - Use L<Cpanel::JSON::XS> with a fallback to L<JSON::XS> and L<JSON::PP>
 
 =head1 SYNOPSIS
 
@@ -115,7 +115,7 @@ and that object can then be used normally:
 =head2 new
 
 With L<JSON::PP>, L<JSON::XS> and L<Cpanel::JSON::XS> you are required to call
-mutators to set options, i.e.
+mutators to set options, such as:
 
   my $json = $class->new->utf8(1)->pretty(1);
 
@@ -125,6 +125,14 @@ Since this is a trifle irritating and noticeably un-perlish, we also offer:
 
 which works equivalently to the above (and in the usual tradition will accept
 a hashref instead of a hash, should you so desire).
+
+=head1 BOOLEANS
+
+To include JSON-aware booleans (C<true>, C<false>) in your data, just do:
+
+    use JSON::MaybeXS;
+    my $true = JSON->true;
+    my $false = JSON->false;
 
 =head1 AUTHOR
 

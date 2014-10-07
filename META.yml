@@ -1,5 +1,5 @@
 ---
-abstract: 'use L<Cpanel::JSON::XS> with a fallback to L<JSON::XS> and L<JSON::PP>'
+abstract: 'Use L<Cpanel::JSON::XS> with a fallback to L<JSON::XS> and L<JSON::PP>'
 author:
   - 'mst - Matt S. Trout (cpan:MSTROUT) <mst@shadowcat.co.uk>'
 build_requires:
@@ -7,10 +7,11 @@ build_requires:
   Test::Without::Module: '0.17'
 configure_requires:
   ExtUtils::CBuilder: '0.27'
+  ExtUtils::MakeMaker: '0'
   File::Spec: '0'
   File::Temp: '0'
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.96, CPAN::Meta::Converter version 2.140640'
+generated_by: 'ExtUtils::MakeMaker version 6.98, CPAN::Meta::Converter version 2.142690'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -28,4 +29,4 @@ requires:
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS
   repository: https://github.com/karenetheridge/JSON-MaybeXS.git
-version: '1.002002'
+version: '1.002003'
