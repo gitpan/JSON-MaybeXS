@@ -28,11 +28,12 @@ DESCRIPTION
     mutators, so we provide our own "new" method that supports that.
 
 EXPORTS
-    All of "encode_json", "decode_json" and "JSON" are exported by default.
+    "encode_json", "decode_json" and "JSON" are exported by default;
+    "is_bool" is exported on request.
 
     To import only some symbols, specify them on the "use" line:
 
-      use JSON::MaybeXS qw(encode_json decode_json); # functions only
+      use JSON::MaybeXS qw(encode_json decode_json is_bool); # functions only
 
       use JSON::MaybeXS qw(JSON); # JSON constant only
 
@@ -59,6 +60,18 @@ EXPORTS
     and that object can then be used normally:
 
       my $data_structure = $json_obj->decode($json_text); # etc.
+
+  is_bool
+      $is_boolean = is_bool($scalar)
+
+    Returns true if the passed scalar represents either "true" or "false",
+    two constants that act like 1 and 0, respectively and are used to
+    represent JSON "true" and "false" values in Perl.
+
+    Since this is a bare sub in the various backend classes, it cannot be
+    called as a class method like the other interfaces; it must be called as
+    a function, with no invocant. It supports the representation used in all
+    JSON backends.
 
 CONSTRUCTOR
   new
