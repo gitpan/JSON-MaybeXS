@@ -37,6 +37,10 @@ EXPORTS
 
       use JSON::MaybeXS qw(JSON); # JSON constant only
 
+    To import all available symbols, use ":all":
+
+      use JSON::MaybeXS ':all';
+
   encode_json
     This is the "encode_json" function provided by the selected
     implementation module, and takes a perl data structure which is

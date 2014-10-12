@@ -34,7 +34,7 @@
          },
          "requires" : {
             "JSON::PP" : "2.27202",
-            "Safe::Isa" : "0",
+            "Scalar::Util" : "0",
             "perl" : "5.006"
          }
       },
@@ -53,9 +53,9 @@
       },
       "repository" : {
          "type" : "git",
-         "url" : "https://github.com/karenetheridge/JSON-MaybeXS.git",
-         "web" : "https://github.com/karenetheridge/JSON-MaybeXS"
+         "url" : "git://git.shadowcat.co.uk/p5sagit/JSON-MaybeXS.git",
+         "web" : "http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/JSON-MaybeXS.git"
       }
    },
-   "version" : "1.002004"
+   "version" : "1.002005"
 }

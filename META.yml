@@ -25,9 +25,9 @@ recommends:
   Cpanel::JSON::XS: '2.3310'
 requires:
   JSON::PP: '2.27202'
-  Safe::Isa: '0'
+  Scalar::Util: '0'
   perl: '5.006'
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS
-  repository: https://github.com/karenetheridge/JSON-MaybeXS.git
-version: '1.002004'
+  repository: git://git.shadowcat.co.uk/p5sagit/JSON-MaybeXS.git
+version: '1.002005'

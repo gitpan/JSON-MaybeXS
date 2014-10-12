@@ -11,9 +11,10 @@ my %WriteMakefileArgs = (
     'meta-spec' => { version => 2 },
     dynamic_config => 1,
     resources => {
+    # r/w: p5sagit@git.shadowcat.co.uk:JSON-MaybeXS.git
       repository => {
-        url => 'https://github.com/karenetheridge/JSON-MaybeXS.git',
-        web => 'https://github.com/karenetheridge/JSON-MaybeXS',
+        url => 'git://git.shadowcat.co.uk/p5sagit/JSON-MaybeXS.git',
+        web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/JSON-MaybeXS.git',
         type => 'git',
       },
       bugtracker => {
@@ -35,7 +36,7 @@ my %WriteMakefileArgs = (
       },
       runtime => {
         requires => {
-          'Safe::Isa' => '0',
+          'Scalar::Util' => '0',
           'JSON::PP' => '2.27202',
           # we may also add a runtime prereq for Cpanel::JSON::XS, on the
           # installer's machine
@@ -72,7 +73,8 @@ for (qw(configure build test runtime)) {
 # (we also always recommend Cpanel::JSON::XS, just to make sure.)
 $WriteMakefileArgs{PREREQ_PM}{'Cpanel::JSON::XS'} = '2.3310'
     if not parse_args()->{PUREPERL_ONLY}
-        && not eval { require JSON::XS; 1; } && can_xs();
+        and not eval { require JSON::XS; 1; }
+        and can_xs();
 
 $WriteMakefileArgs{MIN_PERL_VERSION} = delete $WriteMakefileArgs{PREREQ_PM}{perl} || 0;
 

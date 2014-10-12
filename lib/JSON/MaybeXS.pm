@@ -4,7 +4,7 @@ use strict;
 use warnings FATAL => 'all';
 use base qw(Exporter);
 
-our $VERSION = '1.002004';
+our $VERSION = '1.002005';
 
 sub _choose_json_module {
     return 'Cpanel::JSON::XS' if $INC{'Cpanel/JSON/XS.pm'};
@@ -32,6 +32,7 @@ BEGIN {
 
 our @EXPORT = qw(encode_json decode_json JSON);
 our @EXPORT_OK = qw(is_bool);
+our %EXPORT_TAGS = ( all => [ @EXPORT, @EXPORT_OK ] );
 
 sub JSON () { our $JSON_Class }
 
@@ -43,13 +44,14 @@ sub new {
   return $new;
 }
 
-use Safe::Isa;
+use Scalar::Util ();
 
 sub is_bool {
   die 'is_bool is not a method' if $_[1];
 
-  $_[0]->$_isa('JSON::XS::Boolean')
-    or $_[0]->$_isa('JSON::PP::Boolean');
+  Scalar::Util::blessed($_[0])
+    and ($_[0]->isa('JSON::XS::Boolean')
+      or $_[0]->isa('JSON::PP::Boolean'));
 }
 
 1;
@@ -95,6 +97,10 @@ To import only some symbols, specify them on the C<use> line:
   use JSON::MaybeXS qw(encode_json decode_json is_bool); # functions only
 
   use JSON::MaybeXS qw(JSON); # JSON constant only
+
+To import all available symbols, use C<:all>:
+
+  use JSON::MaybeXS ':all';
 
 =head2 encode_json
 
