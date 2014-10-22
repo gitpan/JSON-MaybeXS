@@ -1,5 +1,9 @@
 Revision history for JSON-MaybeXS
 
+1.002006 - 2014-10-22
+ - add some additional test diagnostics, to help find bad version combinations
+   of JSON backends
+
 1.002005 - 2014-10-12
  - fix "can I haz XS?" logic precedence in Makefile.PL
  - added the ':all' export tag

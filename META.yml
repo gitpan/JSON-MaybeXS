@@ -30,4 +30,4 @@ requires:
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS
   repository: git://git.shadowcat.co.uk/p5sagit/JSON-MaybeXS.git
-version: '1.002005'
+version: '1.002006'
