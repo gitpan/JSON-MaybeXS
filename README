@@ -37,9 +37,22 @@ EXPORTS
 
       use JSON::MaybeXS qw(JSON); # JSON constant only
 
-    To import all available symbols, use ":all":
+    To import all available sensible symbols ("encode_json", "decode_json",
+    and "is_bool"), use ":all":
 
       use JSON::MaybeXS ':all';
+
+    To import all symbols including those needed by legacy apps that use
+    JSON::PP:
+
+      use JSON::MaybeXS ':legacy';
+
+    This imports the "to_json" and "from_json" symbols as well as everything
+    in ":all". NOTE: This is to support legacy code that makes extensive use
+    of "to_json" and "from_json" which you are not yet in a position to
+    refactor. DO NOT use this import tag in new code, in order to avoid the
+    crawling horrors of getting UTF8 support subtly wrong. See the
+    documentation for JSON for further details.
 
   encode_json
     This is the "encode_json" function provided by the selected
@@ -54,6 +67,9 @@ EXPORTS
     a perl data structure.
 
       my $data_structure = decode_json($json_text);
+
+  to_json, from_json
+    See JSON for details. These are included to support legacy code only.
 
   JSON
     The "JSON" constant returns the selected implementation module's name
@@ -106,6 +122,8 @@ CONTRIBUTORS
     *   Clinton Gormley <drtech@cpan.org>
 
     *   Karen Etheridge <ether@cpan.org>
+
+    *   Kieren Diment <diment@gmail.com>
 
 COPYRIGHT
     Copyright (c) 2013 the "JSON::MaybeXS" "AUTHOR" and "CONTRIBUTORS" as
