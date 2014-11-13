@@ -4,7 +4,7 @@ use strict;
 use warnings FATAL => 'all';
 use base qw(Exporter);
 
-our $VERSION = '1.003_000';   # TRIAL RELEASE
+our $VERSION = '1.003001';
 $VERSION = eval $VERSION;
 
 sub _choose_json_module {
@@ -55,6 +55,7 @@ sub is_bool {
 
   Scalar::Util::blessed($_[0])
     and ($_[0]->isa('JSON::XS::Boolean')
+      or $_[0]->isa('Cpanel::JSON::PP::Boolean')
       or $_[0]->isa('JSON::PP::Boolean'));
 }
 

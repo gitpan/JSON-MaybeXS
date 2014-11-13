@@ -11,7 +11,7 @@ configure_requires:
   File::Spec: '0'
   File::Temp: '0'
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 7, CPAN::Meta::Converter version 2.142690'
+generated_by: 'ExtUtils::MakeMaker version 7.02, CPAN::Meta::Converter version 2.142690'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -31,4 +31,4 @@ requires:
 resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=JSON-MaybeXS
   repository: git://git.shadowcat.co.uk/p5sagit/JSON-MaybeXS.git
-version: 1.003_000
+version: '1.003001'
